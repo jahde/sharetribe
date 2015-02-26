@@ -4,7 +4,7 @@ describe "routing for people" do
   
   before(:each) do
     @community = FactoryGirl.create(:community)
-    @protocol_and_host = "http://#{@community.domain}.test.host"
+    @protocol_and_host = "http://#{@community.username}.test.host"
     @person = FactoryGirl.create(:person)
   end
   

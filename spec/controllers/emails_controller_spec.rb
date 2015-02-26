@@ -4,7 +4,7 @@ describe EmailsController do
   describe "#destroy" do
     before(:each) do
       @community = FactoryGirl.create(:community)
-      @request.host = "#{@community.domain}.lvh.me"
+      @request.host = "#{@community.username}.lvh.me"
     end
 
     it "should destroy email" do

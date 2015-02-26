@@ -65,7 +65,7 @@ FactoryGirl.define do
     "kassi_tester#{n}@example.com"
   end
 
-  sequence :domain do |n|
+  sequence :community_username do |n|
     "sharetribe-testcommunity-#{n}"
   end
 
@@ -179,8 +179,7 @@ FactoryGirl.define do
   end
 
   factory :community do
-    domain
-    username { generate(:domain) }
+    username { generate(:community_username) }
     slogan "Test slogan"
     description "Test description"
     category "other"

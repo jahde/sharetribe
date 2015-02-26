@@ -112,16 +112,16 @@ describe Community do
     @community.should be_valid
   end
 
-  it "is not valid without proper domain" do
-    @community.domain = "test_community-9"
+  it "is not valid without proper username" do
+    @community.username = "test_community-9"
     @community.should be_valid
-    @community.domain = nil
+    @community.username = nil
     @community.should_not be_valid
-    @community.domain = "a"
+    @community.username = "a"
     @community.should_not be_valid
-    @community.domain = "a" * 51
+    @community.username = "a" * 51
     @community.should_not be_valid
-    @community.domain = "´?€"
+    @community.username = "´?€"
     @community.should_not be_valid
   end
 

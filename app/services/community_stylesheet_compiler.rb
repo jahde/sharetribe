@@ -35,7 +35,7 @@ module CommunityStylesheetCompiler
       prepare
 
       variable_hash = create_variable_hash(community)
-      target_file_basename = create_new_filename(community.domain)
+      target_file_basename = create_new_filename(community.username)
       target_file_extension = use_gzip? ? "css.gz" : "css"
       target_file_path = "public/assets/#{target_file_basename}.#{target_file_extension}"
 
@@ -138,10 +138,9 @@ module CommunityStylesheetCompiler
       HashUtils.compact(hash)
     end
 
-    def create_new_filename(domain)
-      community_domain = domain.gsub(".", "_")
+    def create_new_filename(username)
       timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-      "custom-style-#{community_domain}-#{timestamp}"
+      "custom-style-#{username}-#{timestamp}"
     end
   end
 end

@@ -17,7 +17,7 @@ describe Admin::CustomFieldsController do
       @community = FactoryGirl.create(:community)
       @another_community = FactoryGirl.create(:community)
 
-      @request.host = "#{@community.domain}.lvh.me"
+      @request.host = "#{@community.username}.lvh.me"
 
       @person = create_admin_for(@community)
       sign_in_for_spec(@person)

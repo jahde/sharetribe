@@ -42,11 +42,10 @@ module MarketplaceService::API
       module_function
 
       def community_params(params, marketplace_name, locale)
-        domain = available_domain_based_on(marketplace_name)
+        username = available_username_based_on(marketplace_name)
         {
           consent: "SHARETRIBE1.0",
-          domain: domain,
-          username: domain,
+          username: username,
           settings: {"locales" => [locale]},
           available_currencies: available_currencies_based_on(params[:marketplace_country].or_else("us")),
           country: params[:marketplace_country].upcase.or_else(nil)
@@ -93,25 +92,25 @@ module MarketplaceService::API
         "<h1>#{I18n.t("infos.how_to_use.default_title", locale: locale)}</h1><div>#{I18n.t("infos.how_to_use.default_content", locale: locale, :marketplace_name => marketplace_name)}</div>"
       end
 
-      def available_domain_based_on(initial_domain)
+      def available_username_based_on(initial_username)
 
-        if initial_domain.blank?
-          initial_domain = "trial_site"
+        if initial_username.blank?
+          initial_username = "trial_site"
         end
 
-        current_domain = initial_domain.to_url
-        current_domain = current_domain[0..29] #truncate to 30 chars or less
+        current_username = initial_username.to_url
+        current_username = current_username[0..29] #truncate to 30 chars or less
 
         # use basedomain as basis on new variations if current domain is not available
-        base_domain = current_domain
+        base_username = current_username
 
         i = 1
-        while CommunityModel.find_by_domain(current_domain) || RESERVED_DOMAINS.include?(current_domain) do
-          current_domain = "#{base_domain}#{i}"
+        while CommunityModel.exists?(username: current_username) || RESERVED_DOMAINS.include?(current_username) do
+          current_username = "#{base_username}#{i}"
           i += 1
         end
 
-        return current_domain
+        return current_username
       end
 
       def available_currencies_based_on(country_code)
