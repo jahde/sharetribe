@@ -54,7 +54,8 @@ class HomepageController < ApplicationController
 
     render locals: {
              listing_shape_menu_enabled: listing_shape_menu_enabled,
-             selected_listing_shape: @selected_listing_shape
+             selected_listing_shape: @selected_listing_shape,
+             filters_in_use: filters_in_use?(params)
            }
   end
 
@@ -69,6 +70,12 @@ class HomepageController < ApplicationController
   end
 
   private
+
+  def filters_in_use?(params)
+    params[:q].present? ||
+    (params[:category].present? && params[:category] != "all") ||
+    (params[:listing_shape].present? && params[:listing_shape] != "all")
+  end
 
   def find_listings(params, listings_per_page)
     filter_params = {}

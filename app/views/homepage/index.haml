@@ -1,5 +1,5 @@
 - content_for :javascript do
-  initialize_homepage(#{filters_in_use?});
+  initialize_homepage(#{filters_in_use});
 
 - content_for :coverfade_class do
   = "without-text"
@@ -50,7 +50,7 @@
               .toggle-header-container
                 .toggle-header
                   - if @selected_listing_shape
-                    = @selected_listing_shape.display_name(I18n.locale).mb_chars.capitalize.to_s
+                    = @selected_listing_shape.transaction_process.display_name(I18n.locale).mb_chars.capitalize.to_s
                   - else
                     = t("homepage.filters.all_listing_types")
 
@@ -60,7 +60,7 @@
               = link_to t("homepage.filters.all_listing_types"), params.merge({listing_shape: "all"})
               - @listing_shapes.each do |listing_shape|
                 = link_to params.merge({listing_shape: listing_shape}), :class => "toggle-menu-subitem" do
-                  = listing_shape.display_name(I18n.locale).mb_chars.capitalize.to_s
+                  = listing_shape.transaction_process.display_name(I18n.locale).mb_chars.capitalize.to_s
 
         - if @show_categories
           .toggle-container.home-toolbar-toggle-container.hidden-tablet
